@@ -6,17 +6,27 @@ import Header from './components/Header/Header'
 
 function App() {
   const [bookmarks, setBookmarks] = useState([]);
+  const [markRead, setMarkRead] = useState(0);
 
   const handelBookmarks = blog => {
     setBookmarks([...bookmarks, blog]);
+  }
+
+  const handelMark = (click, id) => {
+    const newMark = markRead + click;
+    setMarkRead(newMark);
+
+    // remove from bookmarks 
+    const remainingBookmark = bookmarks.filter(bookmark => bookmark.id !== id);
+    setBookmarks(remainingBookmark);
   }
 
   return (
     <div className='container mx-auto'>
       <Header></Header>
       <div className='md:flex gap-10'>
-        <Blogs handelBookmarks={handelBookmarks}></Blogs>
-        <Bookmarks bookmarks={bookmarks}></Bookmarks>
+        <Blogs handelBookmarks={handelBookmarks} handelMark={handelMark}></Blogs>
+        <Bookmarks bookmarks={bookmarks} markRead={markRead}></Bookmarks>
       </div>
     </div>
   )

@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { PiBookmarksFill } from "react-icons/pi";
 
-const Blog = ({ blog, handelBookmarks }) => {
-
+const Blog = ({ blog, handelBookmarks, handelMark }) => {
+    const { id, reading_time } = blog;
     return (
         <div className="space-y-5 mb-10">
             <img className="w-full" src={blog.cover} alt="" />
@@ -23,14 +23,15 @@ const Blog = ({ blog, handelBookmarks }) => {
             <p>
                 {blog['hashtags'].map((hash, idx) => <span key={idx}> #{hash}</span>)}
             </p>
-            <button className="text-purple-800 underline text-xl font-bold cursor-pointer">Mark As Read</button>
+            <button onClick={() => handelMark(reading_time,id)} className="text-purple-800 underline text-xl font-bold cursor-pointer">Mark As Read</button>
         </div>
     );
 };
 
 Blog.propTypes = {
     blog: PropTypes.object.isRequired,
-    handelBookmarks: PropTypes.func.isRequired
+    handelBookmarks: PropTypes.func.isRequired,
+    handelMark: PropTypes.func
 }
 
 export default Blog;
